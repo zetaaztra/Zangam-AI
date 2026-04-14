@@ -7,13 +7,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Initialize Session State for Navigation
+if 'nav_radio' not in st.session_state:
+    st.session_state.nav_radio = "Cover & Overview"
+
 # ─── THEME ───────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* Global */
-[data-testid="stHeader"] { display: none !important; }
 .block-container { padding-top: 1.5rem !important; }
 html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
     background: radial-gradient(circle at top left, #0A2647, #061221) !important;
@@ -21,10 +24,38 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
     font-family: 'Inter', sans-serif;
 }
 [data-testid="stSidebar"] {
-    background: rgba(6, 24, 44, 0.65) !important;
+    background: rgba(6, 24, 44, 0.95) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-right: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+/* 📱 Mobile Optimized Header & Navigation */
+@media (min-width: 1024px) {
+    [data-testid="stHeader"] { display: none !important; }
+}
+@media (max-width: 1023px) {
+    [data-testid="stHeader"] { 
+        background: rgba(6, 24, 44, 0.8) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2) !important;
+        display: flex !important;
+    }
+    /* Vertically center the hamburger icon on mobile */
+    header[data-testid="stHeader"] > div:first-child {
+        padding: 0 1rem !important;
+    }
+}
+
+/* ✨ Smooth Transitions */
+[data-testid="stMain"] {
+    animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 [data-testid="stSidebar"] * { color: #f0ede8 !important; }
 
@@ -198,7 +229,7 @@ with st.sidebar:
         "Financial Projections",
         "Risk Register",
     ]
-    page = st.radio("Navigate", pages, label_visibility="collapsed")
+    page = st.radio("Navigate", pages, key="nav_radio", label_visibility="collapsed")
 
 # ─── PAGE: COVER ─────────────────────────────────────────────────────────────
 if page == "Cover & Overview":
@@ -902,4 +933,28 @@ elif page == "Risk Register":
         st.markdown(f"""<tr class="{rc}"><td style="font-weight:600;color:#fff;">{risk}</td>
         <td>{sev}</td><td style="font-size:0.82rem;">{mit}</td></tr>""", unsafe_allow_html=True)
     st.markdown("</table>", unsafe_allow_html=True)
+
+# ─── NAVIGATION FOOTER ───────────────────────────────────────────────────────
+st.markdown('<br><hr class="gold-line">', unsafe_allow_html=True)
+col_prev, col_spacer, col_next = st.columns([1, 1, 1])
+
+current_idx = pages.index(st.session_state.nav_radio)
+
+with col_prev:
+    if current_idx > 0:
+        if st.button("← Previous Section", use_container_width=True):
+            st.session_state.nav_radio = pages[current_idx - 1]
+            st.rerun()
+
+with col_next:
+    if current_idx < len(pages) - 1:
+        if st.button("Next Section →", use_container_width=True):
+            st.session_state.nav_radio = pages[current_idx + 1]
+            st.rerun()
+
+st.markdown(f"""
+<div style="text-align:center; color:rgba(201, 168, 76, 0.4); font-size:0.7rem; margin-top:2rem; letter-spacing:1px;">
+    SANGAM AI DASHBOARD • {st.session_state.nav_radio.upper()} • {current_idx + 1} / {len(pages)}
+</div>
+""", unsafe_allow_html=True)
 
