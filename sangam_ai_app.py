@@ -7,6 +7,29 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ─── OG/SOCIAL PREVIEW CARDS ────────────────────────────────────────────────
+st.markdown("""
+    <head>
+        <!-- Primary Meta Tags -->
+        <meta name="title" content="Sangam AI — Business Plan">
+        <meta name="description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://sangam-ai.streamlit.app/">
+        <meta property="og:title" content="Sangam AI — Business Plan">
+        <meta property="og:description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
+        <meta property="og:image" content="https://raw.githubusercontent.com/streamlit/docs/main/public/images/streamlit_mark_logo_footer.png">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://sangam-ai.streamlit.app/">
+        <meta property="twitter:title" content="Sangam AI — Business Plan">
+        <meta property="twitter:description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
+        <meta property="twitter:image" content="https://raw.githubusercontent.com/streamlit/docs/main/public/images/streamlit_mark_logo_footer.png">
+    </head>
+""", unsafe_allow_html=True)
+
 # ─── THEME ───────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -298,6 +321,39 @@ elif page == "Vision & Business Model":
             <div style="font-size:0.78rem;color:#A4C3D2;line-height:1.4;">{desc}</div>
             </div>""", unsafe_allow_html=True)
 
+    st.markdown('<hr class="gold-line">', unsafe_allow_html=True)
+    st.markdown("#### 💎 Core Product Pillars")
+    pillars = [
+        ("Family-First UX", "Unlike Tinder/Bumble, we build for the 'Family Circle'. Shared dashboards for parents and children."),
+        ("Vernacular Voice", "AI that understands 22 Indian languages via voice, removing barriers for the elder generation."),
+        ("Verified Trust", "Multi-layer verification: Aadhaar + Video Liveness + Social Graph validation.")
+    ]
+    p_cols = st.columns(3)
+    for col, (title, desc) in zip(p_cols, pillars):
+        with col:
+            st.markdown(f"""<div class="slide-card" style="height:100%; border-top: 2px solid #c9a84c;">
+            <div style="font-weight:600; color:#fff; margin-bottom:0.5rem;">{title}</div>
+            <div style="font-size:0.8rem; color:#A4C3D2;">{desc}</div>
+            </div>""", unsafe_allow_html=True)
+            
+    st.markdown('<hr class="gold-line">', unsafe_allow_html=True)
+    st.markdown("#### 🗺️ The Sangam Journey")
+    journey = [
+        ("1. Vernacular Onboarding", "User records a 30-sec voice intro. AI auto-fills profile details in their native language."),
+        ("2. AI Engine Matching", "Proprietary algorithm scans 40+ dimensions to find deep value compatibility."),
+        ("3. Family Bridge", "Profile is shared with the 'Family Dashboard' for initial elder approval."),
+        ("4. Dignified Sangam", "Secure, moderated chat begins once both families approve.")
+    ]
+    j_cols = st.columns(4)
+    for col, (step, desc) in zip(j_cols, journey):
+        with col:
+            st.markdown(f"""<div style="text-align:center;">
+            <div style="font-size:0.7rem; color:#c9a84c; font-weight:700; margin-bottom:5px;">STEP {step.split('.')[0]}</div>
+            <div style="font-weight:600; font-size:0.9rem; color:#fff; margin-bottom:5px;">{step.split('. ')[1]}</div>
+            <div style="font-size:0.75rem; color:#A4C3D2; line-height:1.4;">{desc}</div>
+            </div>""", unsafe_allow_html=True)
+    
+    st.markdown('<br>', unsafe_allow_html=True)
     st.markdown('<hr class="gold-line">', unsafe_allow_html=True)
     st.markdown("#### 💰 Business & Revenue Model")
     rm = [
