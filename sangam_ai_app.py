@@ -7,29 +7,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ─── OG/SOCIAL PREVIEW CARDS ────────────────────────────────────────────────
-st.markdown("""
-    <head>
-        <!-- Primary Meta Tags -->
-        <meta name="title" content="Sangam AI — Business Plan">
-        <meta name="description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://sangam-ai.streamlit.app/">
-        <meta property="og:title" content="Sangam AI — Business Plan">
-        <meta property="og:description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
-        <meta property="og:image" content="https://raw.githubusercontent.com/streamlit/docs/main/public/images/streamlit_mark_logo_footer.png">
-
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="https://sangam-ai.streamlit.app/">
-        <meta property="twitter:title" content="Sangam AI — Business Plan">
-        <meta property="twitter:description" content="Pan-India AI-Powered Matrimonial Platform Business Plan (2025–2028). Where Intelligence Meets Tradition.">
-        <meta property="twitter:image" content="https://raw.githubusercontent.com/streamlit/docs/main/public/images/streamlit_mark_logo_footer.png">
-    </head>
-""", unsafe_allow_html=True)
-
 # ─── THEME ───────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
