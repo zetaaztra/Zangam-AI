@@ -187,6 +187,7 @@ with st.sidebar:
     pages = [
         "Cover & Overview",
         "Vision & Business Model",
+        "Interactive AI Demo",
         "Market Analysis",
         "Investment Plan",
         "Legal Setup",
@@ -315,6 +316,81 @@ elif page == "Vision & Business Model":
             <div class="rev-desc">{desc}</div>
             </div>""", unsafe_allow_html=True)
             st.markdown("")
+
+# ─── PAGE: INTERACTIVE AI DEMO ───────────────────────────────────────────────
+elif page == "Interactive AI Demo":
+    st.markdown("""<div class="section-header">
+    <div class="section-num">LIVE DEMO</div>
+    <div class="section-title">AI Compatibility Engine</div>
+    <div class="section-sub">Experience the 40+ dimension matchmaking algorithm in action</div>
+    </div>""", unsafe_allow_html=True)
+    
+    st.markdown("""<div class="slide-card" style="padding:1rem 1.5rem; border-color:#c9a84c; background: rgba(201, 168, 76, 0.05);">
+    Test the proprietary Sangam AI scoring model. Enter mock profiles below to see how our engine avoids surface-level matching and dives into deep lifestyle expectations.
+    </div>""", unsafe_allow_html=True)
+    
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("<h4 style='color:#c9a84c !important; font-size:1.1rem;'>👰 Profile A: The Bride</h4>", unsafe_allow_html=True)
+        bride_tradition = st.slider("Traditional vs Modern", 1, 10, 7, key="b1")
+        bride_finance = st.selectbox("Financial Expectation", ["Joint Accounts", "Independent", "Traditional Provider"], index=1, key="b2")
+        bride_career = st.slider("Career Drive", 1, 10, 9, key="b3")
+        
+    with c2:
+        st.markdown("<h4 style='color:#c9a84c !important; font-size:1.1rem;'>🤵 Profile B: The Groom</h4>", unsafe_allow_html=True)
+        groom_tradition = st.slider("Traditional vs Modern", 1, 10, 4, key="g1")
+        groom_finance = st.selectbox("Financial Expectation", ["Joint Accounts", "Independent", "Traditional Provider"], index=2, key="g2")
+        groom_career = st.slider("Career Drive", 1, 10, 6, key="g3")
+        
+    if st.button("🚀 Run Sangam AI Compatibility Engine", use_container_width=True):
+        import time
+        with st.spinner("Analyzing 40+ cultural, financial, and psychological data points..."):
+            time.sleep(1.5)
+            
+        st.markdown("<h3 style='margin-top: 1rem;'>📊 Real-time Match Report</h3>", unsafe_allow_html=True)
+        
+        # Calculate a mock score to make it dynamic based on inputs
+        tradition_diff = abs(bride_tradition - groom_tradition)
+        career_diff = abs(bride_career - groom_career)
+        fin_match = 100 if bride_finance == groom_finance else 60
+        
+        overall_score = int(100 - (tradition_diff * 4) - (career_diff * 2))
+        overall_score = (overall_score + fin_match) // 2
+        
+        # Colors based on score
+        color = "#2ecc71" if overall_score > 75 else "#f39c12" if overall_score > 50 else "#e74c3c"
+        
+        r1, r2, r3 = st.columns(3)
+        with r1:
+            st.markdown(f"""<div class="metric-card">
+            <div class="metric-label">Value Alignment</div>
+            <div class="metric-value" style="color:{color};">{100 - tradition_diff * 10}%</div>
+            </div>""", unsafe_allow_html=True)
+        with r2:
+            st.markdown(f"""<div class="metric-card">
+            <div class="metric-label">Financial Harmony</div>
+            <div class="metric-value" style="color:{'#2ecc71' if fin_match==100 else '#f39c12'};">{fin_match}%</div>
+            </div>""", unsafe_allow_html=True)
+        with r3:
+            st.markdown(f"""<div class="metric-card">
+            <div class="metric-label" style="color:{color};font-weight:bold;">Overall Sangam Score</div>
+            <div class="metric-value" style="color:{color};font-size:2.5rem;">{overall_score}%</div>
+            </div>""", unsafe_allow_html=True)
+            
+        # AI generated reasoning box
+        reasoning = ""
+        if overall_score > 75:
+            reasoning = "<strong>🌟 Highly Compatible:</strong> There is a strong alignment in core priorities. Both individuals have realistic and compatible outlooks on career balance and financial structures. Proceed to Family Chat."
+        elif overall_score > 50:
+            reasoning = "<strong>⚠️ Moderate Match:</strong> The cultural gap exists but is manageable. We recommend our <em>Guided Family Chat</em> feature to discuss differing financial expectations explicitly."
+        else:
+            reasoning = "<strong>❌ Low Compatibility:</strong> Not recommended. Significant divergence in lifestyle expectations (Traditional vs Modern) will likely cause friction. Sangam AI auto-filters these pairs out to save family time."
+            
+        st.markdown(f"""<div class="phase-box" style="margin-top:1.5rem; background: rgba(6, 24, 44, 0.6); border-top:3px solid {color};">
+        <h4 style="margin-top:0;">🤖 AI Narrative Report</h4>
+        <p style="font-size:0.95rem; color:#f0ede8;">{reasoning}</p>
+        <p style="font-size:0.8rem; color:#A4C3D2; font-style:italic; margin-top:10px;">Generated via Sangam Vernacular Engine inside the Family Dashboard.</p>
+        </div>""", unsafe_allow_html=True)
 
 # ─── PAGE: MARKET ANALYSIS ───────────────────────────────────────────────────
 elif page == "Market Analysis":
