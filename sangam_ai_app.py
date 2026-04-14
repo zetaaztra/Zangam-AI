@@ -7,9 +7,34 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Initialize Session State for Navigation
+# Initialize Session State & Navigation
+pages = [
+    "Cover & Overview",
+    "Vision & Business Model",
+    "Interactive AI Demo",
+    "Market Analysis",
+    "Investment Plan",
+    "Legal Setup",
+    "Tech Stack",
+    "Subscriptions & Tools",
+    "Team & Hiring",
+    "Marketing & Growth",
+    "Financial Projections",
+    "Risk Register",
+]
+
 if 'nav_radio' not in st.session_state:
-    st.session_state.nav_radio = "Cover & Overview"
+    st.session_state.nav_radio = pages[0]
+
+def go_next():
+    curr = pages.index(st.session_state.nav_radio)
+    if curr < len(pages) - 1:
+        st.session_state.nav_radio = pages[curr + 1]
+
+def go_prev():
+    curr = pages.index(st.session_state.nav_radio)
+    if curr > 0:
+        st.session_state.nav_radio = pages[curr - 1]
 
 # ─── THEME ───────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -215,20 +240,6 @@ with st.sidebar:
     st.markdown("### SANGAM AI")
     st.markdown("**Complete Business Plan · 2025–2028**")
     st.markdown('<hr class="gold-line">', unsafe_allow_html=True)
-    pages = [
-        "Cover & Overview",
-        "Vision & Business Model",
-        "Interactive AI Demo",
-        "Market Analysis",
-        "Investment Plan",
-        "Legal Setup",
-        "Tech Stack",
-        "Subscriptions & Tools",
-        "Team & Hiring",
-        "Marketing & Growth",
-        "Financial Projections",
-        "Risk Register",
-    ]
     page = st.radio("Navigate", pages, key="nav_radio", label_visibility="collapsed")
 
 # ─── PAGE: COVER ─────────────────────────────────────────────────────────────
@@ -942,15 +953,11 @@ current_idx = pages.index(st.session_state.nav_radio)
 
 with col_prev:
     if current_idx > 0:
-        if st.button("← Previous Section", use_container_width=True):
-            st.session_state.nav_radio = pages[current_idx - 1]
-            st.rerun()
+        st.button("← Previous Section", use_container_width=True, on_click=go_prev)
 
 with col_next:
     if current_idx < len(pages) - 1:
-        if st.button("Next Section →", use_container_width=True):
-            st.session_state.nav_radio = pages[current_idx + 1]
-            st.rerun()
+        st.button("Next Section →", use_container_width=True, on_click=go_next)
 
 st.markdown(f"""
 <div style="text-align:center; color:rgba(201, 168, 76, 0.4); font-size:0.7rem; margin-top:2rem; letter-spacing:1px;">
