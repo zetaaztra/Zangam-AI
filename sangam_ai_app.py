@@ -409,7 +409,18 @@ elif page == "Interactive AI Demo":
         "Orion (The Guardian)": "Protective, grounded, value-driven, and resilient.",
         "Polaris (The Constant)": "Steadfast, loyal, traditional, and unchanging.",
         "Vega (The Visionary)": "Innovative, creative, forward-looking, and dynamic.",
-        "Altair (The Balanced)": "Harmonious, diplomatic, adaptable, and serene."
+        "Altair (The Balanced)": "Harmonious, diplomatic, adaptable, and serene.",
+        "Antares (The Strategist)": "Intense, analytical, sharp, and results-focused.",
+        "Betelgeuse (The Enthusiast)": "Vibrant, expressive, warm, and highly social.",
+        "Regulus (The Commander)": "Authoritative, noble, structured, and protective.",
+        "Canopus (The Artisan)": "Skillful, precise, quiet, and detail-oriented.",
+        "Spica (The Perceptive)": "Intuitive, observant, gentle, and deeply empathetic.",
+        "Rigel (The Explorer)": "Adventurous, restless, curious, and bold.",
+        "Fomalhaut (The Mediator)": "Peace-seeking, idealistic, calm, and poetic.",
+        "Arcturus (The Achiever)": "Energetic, driven, efficient, and influential.",
+        "Aldebaran (The Defender)": "Solid, courageous, patient, and deeply rooted.",
+        "Capella (The Entertainer)": "Joyful, multi-faceted, bright, and charming.",
+        "Deneb (The Voyager)": "Philosophical, detached, wise, and wide-reaching."
     }
     
     c1, c2 = st.columns(2)
@@ -430,16 +441,53 @@ elif page == "Interactive AI Demo":
             
         st.markdown("<h3 style='margin-top: 1rem;'>✨ Resonance Report</h3>", unsafe_allow_html=True)
         
-        # Simple resonance mapping logic
-        star_map = {
-            "Sirius (The Luminary)": {"Sirius (The Luminary)": 92, "Orion (The Guardian)": 85, "Polaris (The Constant)": 65, "Vega (The Visionary)": 88, "Altair (The Balanced)": 78},
-            "Orion (The Guardian)": {"Sirius (The Luminary)": 85, "Orion (The Guardian)": 90, "Polaris (The Constant)": 95, "Vega (The Visionary)": 70, "Altair (The Balanced)": 82},
-            "Polaris (The Constant)": {"Sirius (The Luminary)": 65, "Orion (The Guardian)": 95, "Polaris (The Constant)": 98, "Vega (The Visionary)": 55, "Altair (The Balanced)": 88},
-            "Vega (The Visionary)": {"Sirius (The Luminary)": 88, "Orion (The Guardian)": 70, "Polaris (The Constant)": 55, "Vega (The Visionary)": 94, "Altair (The Balanced)": 75},
-            "Altair (The Balanced)": {"Sirius (The Luminary)": 78, "Orion (The Guardian)": 82, "Polaris (The Constant)": 88, "Vega (The Visionary)": 75, "Altair (The Balanced)": 91}
+        # ─── CELESTIAL ALIGNMENT ENGINE LOGIC ───────────────────
+        star_traits = {
+            "Sirius (The Luminary)": {"type": "Leader", "energy": "Active", "element": "Fire"},
+            "Orion (The Guardian)": {"type": "Protector", "energy": "Stable", "element": "Earth"},
+            "Polaris (The Constant)": {"type": "Protector", "energy": "Stable", "element": "Earth"},
+            "Vega (The Visionary)": {"type": "Innovator", "energy": "Active", "element": "Air"},
+            "Altair (The Balanced)": {"type": "Harmonizer", "energy": "Stable", "element": "Water"},
+            "Antares (The Strategist)": {"type": "Leader", "energy": "Focused", "element": "Fire"},
+            "Betelgeuse (The Enthusiast)": {"type": "Innovator", "energy": "Active", "element": "Air"},
+            "Regulus (The Commander)": {"type": "Leader", "energy": "Stable", "element": "Fire"},
+            "Canopus (The Artisan)": {"type": "Harmonizer", "energy": "Focused", "element": "Earth"},
+            "Spica (The Perceptive)": {"type": "Harmonizer", "energy": "Stable", "element": "Water"},
+            "Rigel (The Explorer)": {"type": "Innovator", "energy": "Active", "element": "Air"},
+            "Fomalhaut (The Mediator)": {"type": "Harmonizer", "energy": "Stable", "element": "Water"},
+            "Arcturus (The Achiever)": {"type": "Leader", "energy": "Focused", "element": "Air"},
+            "Aldebaran (The Defender)": {"type": "Protector", "energy": "Stable", "element": "Earth"},
+            "Capella (The Entertainer)": {"type": "Innovator", "energy": "Active", "element": "Fire"},
+            "Deneb (The Voyager)": {"type": "Innovator", "energy": "Stable", "element": "Air"},
         }
+
+        t1 = star_traits[bride_star]
+        t2 = star_traits[groom_star]
         
-        overall_score = star_map[bride_star][groom_star]
+        # Calculate Base Resonance (60-98%)
+        score = 75
+        
+        # Logic: Elements (Fire/Air, Earth/Water are complementary)
+        complementary = {"Fire": "Air", "Air": "Fire", "Earth": "Water", "Water": "Earth"}
+        if t1["element"] == t2["element"]: 
+            score += 15
+        elif complementary.get(t1["element"]) == t2["element"]:
+            score += 10
+        else:
+            score -= 5
+            
+        # Logic: Energy Match
+        if t1["energy"] == t2["energy"]:
+            score += 8
+        
+        # Logic: Type Harmony
+        if t1["type"] == t2["type"]:
+            score += 5
+        elif (t1["type"] == "Leader" and t2["type"] == "Harmonizer") or (t2["type"] == "Leader" and t1["type"] == "Harmonizer"):
+            score += 7
+            
+        # Cap score between 55 and 98
+        overall_score = max(55, min(98, score))
         
         # Colors based on score
         color = "#2ecc71" if overall_score > 85 else "#f39c12" if overall_score > 70 else "#e74c3c"
